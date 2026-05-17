@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alahmar | Premium Digital Agency</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <!-- Tech Background Canvas -->
+    <canvas id="tech-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-content">
+            <span class="loader-text">ALAHMAR</span>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">ALAHMAR<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="menu-toggle">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h5 class="reveal-text">DIGITAL EXPERIENCE ARCHITECT</h5>
+                    <h1 class="reveal-text">Hi, I'm <span class="accent">Sadiq Alahmar</span></h1>
+                    <h2 class="typing-text"></h2>
+                    <p class="reveal-text">Crafting high-end digital solutions with precision, passion, and Apple-level aesthetics.</p>
+                    <div class="hero-btns reveal-text">
+                        <a href="#contact" class="btn btn-primary magnetic">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="subtitle">WHO WE ARE</span>
+                    <h2>Innovation Driven by <span class="accent">Excellence</span></h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <p>Alahmar is more than just a digital agency. We are a team of visionaries dedicated to pushing the boundaries of what's possible on the web. Our philosophy is simple: combine cutting-edge technology with timeless design to create experiences that resonate.</p>
+                        <p>Founded by Sadiq Alahmar, our agency brings a unique blend of technical expertise and creative flair to every project. We don't just build websites; we build digital legacies.</p>
+                    </div>
+                    <div class="about-image-wrapper reveal">
+                        <div class="experience-card magnetic">
+                            <span class="exp-number">3+</span>
+                            <span class="exp-text">Years of Mastery</span>
+                        </div>
+                        <div class="about-img-bg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="subtitle">SERVICES</span>
+                    <h2>What We <span class="accent">Deliver</span></h2>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-code"></i></div>
+                        <h3>Frontend</h3>
+                        <p>Pixel-perfect, responsive, and high-performance interfaces built with modern tech.</p>
+                    </div>
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-server"></i></div>
+                        <h3>Backend</h3>
+                        <p>Robust, scalable, and secure server-side architectures to power your business.</p>
+                    </div>
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-pencil-ruler"></i></div>
+                        <h3>UI/UX</h3>
+                        <p>Intuitive user journeys and stunning visuals that convert visitors into fans.</p>
+                    </div>
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-database"></i></div>
+                        <h3>Databases</h3>
+                        <p>Efficient data modeling and management for high-speed application performance.</p>
+                    </div>
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>DevOps</h3>
+                        <p>Seamless CI/CD pipelines and cloud infrastructure for maximum uptime.</p>
+                    </div>
+                    <div class="service-card reveal magnetic">
+                        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Mobile Dev</h3>
+                        <p>Native-like cross-platform mobile applications for iOS and Android.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="subtitle">GET IN TOUCH</span>
+                    <h2>Let's Start Your <span class="accent">Journey</span></h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info-list reveal">
+                        <div class="contact-item magnetic">
+                            <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="text">
+                                <h4>WhatsApp</h4>
+                                <a href="https://wa.me/905363101322" target="_blank">+90 536 310 1322</a>
+                            </div>
+                        </div>
+                        <div class="contact-item magnetic">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <div class="text">
+                                <h4>Email</h4>
+                                <a href="mailto:sadiqalahmar20303@gmail.com">sadiqalahmar20303@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item magnetic">
+                            <div class="icon"><i class="fab fa-instagram"></i></div>
+                            <div class="text">
+                                <h4>Instagram</h4>
+                                <a href="https://www.instagram.com/sadiq_kahtan" target="_blank">@sadiq_kahtan</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrapper reveal">
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder=" " required>
+                                <label for="name">Your Name</label>
+                                <div class="line"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder=" " required>
+                                <label for="email">Your Email</label>
+                                <div class="line"></div>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder=" " required>
+                                <label for="phone">Your Phone (for WhatsApp)</label>
+                                <div class="line"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder=" " required></textarea>
+                                <label for="message">Your Message</label>
+                                <div class="line"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary magnetic">Send to WhatsApp <i class="fab fa-whatsapp"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo">ALAHMAR<span>.</span></a>
+                    <p>Elevating digital experiences through innovation.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/sadiq_kahtan" target="_blank" class="magnetic"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="magnetic"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="magnetic"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Alahmar Agency. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
