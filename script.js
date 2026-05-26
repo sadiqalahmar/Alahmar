@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', () => {
     // 1. LOADER LOGIC
     const loader = document.querySelector('.loader');
     const loaderBar = document.querySelector('.loader-bar');
