@@ -13,42 +13,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. CUSTOM CURSOR
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
+    if (!isTouchDevice && window.innerWidth > 1024) {
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
 
-    function animateCursor() {
-        // Smooth cursor
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
 
-        // Smooth follower
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
-        cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0)`;
+        function animateCursor() {
+            // Smooth cursor
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
 
-        requestAnimationFrame(animateCursor);
+            // Smooth follower
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0)`;
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects
+        const interactiveElements = document.querySelectorAll('a, button, .tilt, .magnetic');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0) scale(1.5)`;
+                cursorFollower.style.backgroundColor = 'rgba(255, 44, 44, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0) scale(1)`;
+                cursorFollower.style.backgroundColor = 'transparent';
+            });
+        });
+    } else {
+        // Hide cursor elements if they exist
+        if (cursor) cursor.style.display = 'none';
+        if (cursorFollower) cursorFollower.style.display = 'none';
     }
-    animateCursor();
-
-    // Cursor hover effects
-    const interactiveElements = document.querySelectorAll('a, button, .tilt, .magnetic');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0) scale(1.5)`;
-            cursorFollower.style.backgroundColor = 'rgba(255, 44, 44, 0.1)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursorFollower.style.transform = `translate3d(${followerX - 16}px, ${followerY - 16}px, 0) scale(1)`;
-            cursorFollower.style.backgroundColor = 'transparent';
-        });
-    });
 
     // 3. THEME TOGGLE (Cycles through: Dark -> Light -> Team)
     const themeBtn = document.getElementById('theme-toggle');
@@ -175,10 +183,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 10. MOBILE MENU TOGGLE
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinksContainer = document.querySelector('.nav-links');
+    const navLinksMobile = document.querySelectorAll('.nav-link');
     
     menuToggle.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
         menuToggle.classList.toggle('active');
+        body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    navLinksMobile.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinksContainer.classList.remove('active');
+            menuToggle.classList.remove('active');
+            body.style.overflow = 'auto';
+        });
     });
 
     // 11. FORM SUBMISSION (WhatsApp Redirect)
