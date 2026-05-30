@@ -18,64 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }, 500);
 
-    // 2. CUSTOM CURSOR
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-
-    if (!isTouchDevice && window.innerWidth > 1024) {
-        document.body.classList.add('custom-cursor-active');
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        }, { passive: true });
-
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.2;
-            cursorY += (mouseY - cursorY) * 0.2;
-            if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
-
-            followerX += (mouseX - followerX) * 0.1;
-            followerY += (mouseY - followerY) * 0.1;
-            if (cursorFollower) {
-                cursorFollower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
-                cursorFollower.style.boxShadow = `0 0 20px var(--primary-glow)`;
-            }
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        const interactiveElements = document.querySelectorAll('a, button, .service-card, .magnetic');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (cursorFollower) {
-                    cursorFollower.style.width = '80px';
-                    cursorFollower.style.height = '80px';
-                    cursorFollower.style.backgroundColor = 'rgba(139, 0, 0, 0.1)';
-                    cursorFollower.style.border = '1px solid var(--primary)';
-                }
-                if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(0.5)`;
-            });
-            el.addEventListener('mouseleave', () => {
-                if (cursorFollower) {
-                    cursorFollower.style.width = '40px';
-                    cursorFollower.style.height = '40px';
-                    cursorFollower.style.backgroundColor = 'transparent';
-                    cursorFollower.style.border = '2px solid var(--primary)';
-                }
-                if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(1)`;
-            });
-        });
-    } else {
-        if (cursor) cursor.style.display = 'none';
-        if (cursorFollower) cursorFollower.style.display = 'none';
-    }
-
     // 3. THEME TOGGLE
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
@@ -193,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nav.classList.remove('sticky');
                 }
 
+                // Active Link Update
                 let current = '';
                 sections.forEach(section => {
                     if (currentScroll >= section.offsetTop - 250) {
@@ -214,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d', { alpha: false });
         let particles = [];
         let shapes = [];
-        const symbols = ['{', '}', '[', ']', '(', ')', '<', '>', '/', '!', ';', '=>', '0', '1'];
+        const symbols = ['{', '}', '[', ']', '(', ')', '<', '>', '/', '!', ';', '&&', '||', '=>', '0', '1'];
         const particleCount = window.innerWidth < 768 ? 30 : 60;
         
         class Particle {
@@ -243,17 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (this.baseY > canvas.height) this.baseY = 0;
                 if (this.baseY < 0) this.baseY = canvas.height;
 
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) {
-                    const force = (120 - distance) / 120;
-                    this.x -= (dx / distance) * force * this.density;
-                    this.y -= (dy / distance) * force * this.density;
-                } else {
-                    this.x += (this.baseX - this.x) * 0.05;
-                    this.y += (this.baseY - this.y) * 0.05;
-                }
+                this.x += (this.baseX - this.x) * 0.05;
+                this.y += (this.baseY - this.y) * 0.05;
             }
         }
 
