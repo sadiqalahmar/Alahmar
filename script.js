@@ -151,6 +151,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
+    // 9. MOBILE MENU TOGGLE
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const bodyContainer = document.body;
+
+    if (menuToggle && navLinksContainer) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinksContainer.classList.toggle('active');
+            bodyContainer.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+                bodyContainer.style.overflow = '';
+            });
+        });
+    }
+
     // 12. OPTIMIZED TECH BACKGROUND & AURORA
     const canvas = document.getElementById('tech-canvas');
     if (canvas) {

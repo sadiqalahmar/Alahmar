@@ -169,17 +169,22 @@ h1, h2, h3, h4, h5, .logo {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0.5rem 0; /* Reduced padding to balance the larger logo */
+    padding: 0; /* Zero padding to keep the bar as slim as possible */
+    height: 90px; /* Compact bar height */
     background: var(--nav-bg);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
@@ -188,18 +193,27 @@ h1, h2, h3, h4, h5, .logo {
     color: var(--text-color);
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .logo-img {
-    height: 180px; /* Dramatically increased (3x larger than previous 60-70px range) */
+    height: 180px; /* KEPT EXACTLY THE SAME AS REQUESTED */
     width: auto;
     transition: transform 0.3s ease;
-    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.4)); /* Enhanced glow for better visibility */
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.4));
+    margin-bottom: -90px; /* Allows the logo to hang over the bottom edge of the bar */
+    z-index: 1001;
+    position: relative;
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        height: 70px; /* Even more compact bar for mobile */
+    }
+    
     .logo-img {
-        height: 100px; /* Significantly larger for mobile devices */
+        height: 100px; /* KEPT EXACTLY THE SAME AS REQUESTED */
+        margin-bottom: -30px; /* Proportional overhang for mobile */
     }
 }
 
