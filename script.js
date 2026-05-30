@@ -3,10 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.querySelector('.loader');
     const loaderBar = document.querySelector('.loader-bar');
     
+    // Safety: force hide loader after 5 seconds even if something fails
+    const forceHideLoader = setTimeout(() => {
+        if (loader) loader.classList.add('hidden');
+    }, 5000);
+
     setTimeout(() => {
         if (loaderBar) loaderBar.style.width = '100%';
         setTimeout(() => {
-            if (loader) loader.classList.add('hidden');
+            if (loader) {
+                loader.classList.add('hidden');
+                clearTimeout(forceHideLoader);
+                // Force reveal hero after loader finishes
+                const heroElements = document.querySelectorAll('#hero .reveal-text, #hero .reveal');
+                heroElements.forEach(el => el.classList.add('active'));
+            }
         }, 1000);
     }, 500);
 
@@ -26,12 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function animateCursor() {
-            // Smooth cursor
             cursorX += (mouseX - cursorX) * 0.2;
             cursorY += (mouseY - cursorY) * 0.2;
             if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
 
-            // Smooth follower with trailing glow
             followerX += (mouseX - followerX) * 0.1;
             followerY += (mouseY - followerY) * 0.1;
             if (cursorFollower) {
@@ -43,14 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         animateCursor();
 
-        // Cursor hover effects
         const interactiveElements = document.querySelectorAll('a, button, .service-card, .magnetic');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 if (cursorFollower) {
                     cursorFollower.style.width = '80px';
                     cursorFollower.style.height = '80px';
-                    cursorFollower.style.backgroundColor = 'rgba(168, 85, 247, 0.1)';
+                    cursorFollower.style.backgroundColor = 'rgba(255, 44, 44, 0.1)';
                     cursorFollower.style.border = '1px solid var(--primary)';
                 }
                 if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(0.5)`;
@@ -81,16 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentThemeIndex === -1) currentThemeIndex = 0;
         
         body.className = themes[currentThemeIndex];
-        updateThemeIcon();
+        updateThemeIcon(themes[currentThemeIndex]);
 
         themeBtn.addEventListener('click', () => {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            body.className = themes[currentThemeIndex];
-            localStorage.setItem('theme', themes[currentThemeIndex]);
-            updateThemeIcon();
+            const newTheme = themes[currentThemeIndex];
+            body.className = newTheme;
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
         });
 
-        function updateThemeIcon() {
+        function updateThemeIcon(theme) {
             if (theme === 'dark-mode') {
                 icon.className = 'fas fa-moon';
             } else if (theme === 'light-mode') {
@@ -162,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
@@ -212,10 +221,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (window.pageYOffset / totalScroll) * 100;
+        const currentScroll = window.scrollY || window.pageYOffset;
+        const progress = (currentScroll / totalScroll) * 100;
         if (progressBar) progressBar.style.height = `${progress}%`;
 
-        if (window.scrollY > 100) {
+        if (currentScroll > 100) {
             nav.classList.add('sticky');
             nav.style.padding = '0.8rem 0';
         } else {
@@ -226,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 200) {
+            if (currentScroll >= sectionTop - 200) {
                 current = section.getAttribute('id');
             }
         });
@@ -302,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.baseY = this.y;
                 this.density = (Math.random() * 20) + 1;
                 this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-                this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, 0.3)' : 'rgba(6, 182, 212, 0.2)';
+                this.color = Math.random() > 0.5 ? 'rgba(255, 44, 44, 0.3)' : 'rgba(255, 255, 255, 0.1)';
                 this.velocity = { x: (Math.random() - 0.5) * 0.3, y: (Math.random() - 0.5) * 0.3 };
             }
             draw() {
@@ -349,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
-                ctx.strokeStyle = 'rgba(168, 85, 247, 0.1)';
+                ctx.strokeStyle = 'rgba(255, 44, 44, 0.1)';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(-this.size/2, -this.size/2, this.size, this.size);
                 ctx.restore();
@@ -364,13 +374,12 @@ document.addEventListener('DOMContentLoaded', () => {
         function drawAurora() {
             const time = Date.now() * 0.001;
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, 'rgba(10, 10, 15, 1)');
-            gradient.addColorStop(0.5, `rgba(26, 10, 46, ${0.5 + Math.sin(time) * 0.1})`);
-            gradient.addColorStop(1, 'rgba(10, 10, 15, 1)');
+            gradient.addColorStop(0, 'rgba(10, 10, 10, 1)');
+            gradient.addColorStop(0.5, `rgba(40, 10, 10, ${0.5 + Math.sin(time) * 0.1})`);
+            gradient.addColorStop(1, 'rgba(10, 10, 10, 1)');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Soft Aurora Waves
             ctx.globalCompositeOperation = 'screen';
             for (let i = 0; i < 3; i++) {
                 const shift = time * (0.5 + i * 0.2);
@@ -385,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.closePath();
                 const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
                 waveGradient.addColorStop(0, 'transparent');
-                waveGradient.addColorStop(0.5, i === 0 ? 'rgba(168, 85, 247, 0.1)' : i === 1 ? 'rgba(6, 182, 212, 0.1)' : 'rgba(59, 130, 246, 0.1)');
+                waveGradient.addColorStop(0.5, 'rgba(255, 44, 44, 0.08)');
                 waveGradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = waveGradient;
                 ctx.fill();
