@@ -191,9 +191,16 @@ h1, h2, h3, h4, h5, .logo {
 }
 
 .logo-img {
-    height: 40px; /* Adjust height as needed */
+    height: 70px; /* Increased from 40px for better visibility */
     width: auto;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.3)); /* Subtle glow to help it pop */
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 50px; /* Responsive size for mobile */
+    }
 }
 
 .logo:hover .logo-img {
