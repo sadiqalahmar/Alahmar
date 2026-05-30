@@ -186,6 +186,18 @@ h1, h2, h3, h4, h5, .logo {
     font-size: 1.5rem;
     text-decoration: none;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px; /* Adjust height as needed */
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.05);
 }
 
 .logo span {
