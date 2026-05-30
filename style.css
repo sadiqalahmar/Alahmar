@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, .logo {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1.5rem 0;
+    padding: 0.5rem 0; /* Reduced padding to balance the larger logo */
     background: var(--nav-bg);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
@@ -191,15 +191,15 @@ h1, h2, h3, h4, h5, .logo {
 }
 
 .logo-img {
-    height: 70px; /* Increased from 40px for better visibility */
+    height: 180px; /* Dramatically increased (3x larger than previous 60-70px range) */
     width: auto;
     transition: transform 0.3s ease;
-    filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.3)); /* Subtle glow to help it pop */
+    filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.4)); /* Enhanced glow for better visibility */
 }
 
 @media (max-width: 768px) {
     .logo-img {
-        height: 50px; /* Responsive size for mobile */
+        height: 100px; /* Significantly larger for mobile devices */
     }
 }
 
