@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (loader) {
                 loader.classList.add('hidden');
                 clearTimeout(forceHideLoader);
-                // Force reveal hero
                 document.querySelectorAll('#hero .reveal-text, #hero .reveal').forEach(el => el.classList.add('active'));
             }
         }, 1000);
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
     let followerX = 0, followerY = 0;
-    let isMoving = false;
 
     if (!isTouchDevice && window.innerWidth > 1024) {
         document.body.classList.add('custom-cursor-active');
@@ -35,22 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            isMoving = true;
         }, { passive: true });
 
         function animateCursor() {
-            if (isMoving) {
-                // Centering logic: subtract half of the element's width/height
-                cursorX += (mouseX - cursorX) * 0.2;
-                cursorY += (mouseY - cursorY) * 0.2;
-                if (cursor) cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0)`;
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
 
-                followerX += (mouseX - followerX) * 0.1;
-                followerY += (mouseY - followerY) * 0.1;
-                if (cursorFollower) {
-                    cursorFollower.style.transform = `translate3d(${followerX - 20}px, ${followerY - 20}px, 0)`;
-                    cursorFollower.style.boxShadow = `0 0 20px var(--primary-glow)`;
-                }
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            if (cursorFollower) {
+                cursorFollower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+                cursorFollower.style.boxShadow = `0 0 20px var(--primary-glow)`;
             }
             requestAnimationFrame(animateCursor);
         }
@@ -64,10 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     cursorFollower.style.height = '80px';
                     cursorFollower.style.backgroundColor = 'rgba(139, 0, 0, 0.1)';
                     cursorFollower.style.border = '1px solid var(--primary)';
-                    // Re-adjust offset for larger size
-                    cursorFollower.style.transform = `translate3d(${followerX - 40}px, ${followerY - 40}px, 0)`;
                 }
-                if (cursor) cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0) scale(0.5)`;
+                if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(0.5)`;
             });
             el.addEventListener('mouseleave', () => {
                 if (cursorFollower) {
@@ -76,19 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     cursorFollower.style.backgroundColor = 'transparent';
                     cursorFollower.style.border = '2px solid var(--primary)';
                 }
-                if (cursor) cursor.style.transform = `translate3d(${cursorX - 4}px, ${cursorY - 4}px, 0) scale(1)`;
+                if (cursor) cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) scale(1)`;
             });
         });
     } else {
         if (cursor) cursor.style.display = 'none';
         if (cursorFollower) cursorFollower.style.display = 'none';
-        document.body.classList.remove('custom-cursor-active');
     }
 
     // 3. THEME TOGGLE
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
-    const themes = ['dark-mode', 'light-mode'];
 
     if (themeBtn) {
         const icon = themeBtn.querySelector('i');
@@ -203,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     nav.classList.remove('sticky');
                 }
 
-                // Active Link Update
                 let current = '';
                 sections.forEach(section => {
                     if (currentScroll >= section.offsetTop - 250) {
@@ -219,25 +208,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // 10. MOBILE MENU TOGGLE
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinksContainer = document.querySelector('.nav-links');
-    
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            navLinksContainer.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : 'auto';
-        });
-    }
-
     // 12. OPTIMIZED TECH BACKGROUND & AURORA
     const canvas = document.getElementById('tech-canvas');
     if (canvas) {
-        const ctx = canvas.getContext('2d', { alpha: false }); // Performance optimization
+        const ctx = canvas.getContext('2d', { alpha: false });
         let particles = [];
+        let shapes = [];
         const symbols = ['{', '}', '[', ']', '(', ')', '<', '>', '/', '!', ';', '=>', '0', '1'];
-        const particleCount = window.innerWidth < 768 ? 40 : 80;
+        const particleCount = window.innerWidth < 768 ? 30 : 60;
         
         class Particle {
             constructor() { this.init(); }
@@ -249,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.baseY = this.y;
                 this.density = (Math.random() * 15) + 1;
                 this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-                this.color = Math.random() > 0.5 ? 'rgba(139, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.05)';
+                this.color = Math.random() > 0.5 ? 'rgba(139, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.2)';
                 this.velocity = { x: (Math.random() - 0.5) * 0.2, y: (Math.random() - 0.5) * 0.2 };
             }
             draw() {
@@ -279,30 +257,56 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        class FloatingShape {
+            constructor(side) {
+                this.side = side;
+                this.init();
+            }
+            init() {
+                this.x = this.side === 'left' ? Math.random() * 200 : canvas.width - Math.random() * 200;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 100 + 50;
+                this.angle = Math.random() * Math.PI * 2;
+                this.rotation = Math.random() * 0.005;
+                this.speed = Math.random() * 0.3 + 0.1;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.strokeStyle = 'rgba(139, 0, 0, 0.15)';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(-this.size/2, -this.size/2, this.size, this.size);
+                ctx.restore();
+            }
+            update() {
+                this.angle += this.rotation;
+                this.y -= this.speed;
+                if (this.y < -this.size) this.y = canvas.height + this.size;
+            }
+        }
+
         function drawAurora() {
             const time = Date.now() * 0.0005;
             const isDark = body.classList.contains('dark-mode');
-            
-            // Background fill
             ctx.fillStyle = isDark ? '#000000' : '#ffffff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Soft Aurora Waves (Optimized)
             ctx.globalCompositeOperation = isDark ? 'screen' : 'multiply';
-            for (let i = 0; i < 2; i++) { // Reduced wave count
+            for (let i = 0; i < 2; i++) {
                 const shift = time * (0.3 + i * 0.1);
                 ctx.beginPath();
                 ctx.moveTo(0, canvas.height * 0.8);
-                for (let x = 0; x < canvas.width; x += 100) { // Larger steps
-                    const y = canvas.height * 0.8 + Math.sin(x * 0.001 + shift) * 50;
+                for (let x = 0; x < canvas.width; x += 100) {
+                    const y = canvas.height * 0.8 + Math.sin(x * 0.001 + shift) * 60;
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(canvas.width, canvas.height);
                 ctx.lineTo(0, canvas.height);
                 ctx.closePath();
-                const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.6, 0, canvas.height);
+                const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
                 waveGradient.addColorStop(0, 'transparent');
-                waveGradient.addColorStop(1, isDark ? 'rgba(139, 0, 0, 0.1)' : 'rgba(139, 0, 0, 0.05)');
+                waveGradient.addColorStop(1, isDark ? 'rgba(139, 0, 0, 0.2)' : 'rgba(139, 0, 0, 0.08)');
                 ctx.fillStyle = waveGradient;
                 ctx.fill();
             }
@@ -313,11 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = Array.from({ length: particleCount }, () => new Particle());
+            shapes = [new FloatingShape('left'), new FloatingShape('right'), new FloatingShape('left')];
         }
 
         function animate() {
             drawAurora();
             particles.forEach(p => { p.update(); p.draw(); });
+            shapes.forEach(s => { s.update(); s.draw(); });
             requestAnimationFrame(animate);
         }
 

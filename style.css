@@ -132,14 +132,14 @@ h1, h2, h3, h4, h5, .logo {
 
 /* Custom Cursor */
 .cursor {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: var(--primary);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
+    z-index: 20001; /* Above Loader */
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
 }
 
 .cursor-follower {
@@ -149,8 +149,8 @@ h1, h2, h3, h4, h5, .logo {
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    z-index: 20000; /* Above Loader */
+    transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
 }
 
 @media (max-width: 1024px) {
