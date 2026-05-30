@@ -1,20 +1,20 @@
 :root {
     /* Themes */
-    --primary: #ff2c2c; /* Original Red */
-    --secondary: #ff5e5e; /* Light Red */
-    --accent: #ff0000; /* Pure Red */
-    --primary-glow: rgba(255, 44, 44, 0.5);
+    --primary: #8b0000; /* Dark Red */
+    --secondary: #a50000; /* Slightly lighter red */
+    --accent: #ff0000;
+    --primary-glow: rgba(139, 0, 0, 0.5);
     
-    /* Dark Mode Defaults - Original Palette */
-    --bg-dark: #0a0a0a;
-    --bg-card: #151515;
+    /* Dark Mode Defaults */
+    --bg-dark: #000000;
+    --bg-card: #0a0a0a;
     --bg-accent: #111111;
     --bg-color: var(--bg-dark);
     --text-color: #ffffff;
     --text-muted: #a0a0a0;
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --nav-bg: rgba(10, 10, 10, 0.8);
-    --border-color: rgba(255, 44, 44, 0.2);
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --nav-bg: rgba(0, 0, 0, 0.8);
+    --border-color: rgba(139, 0, 0, 0.3);
     --accent-glow: linear-gradient(45deg, var(--primary), var(--secondary));
     
     /* Glassmorphism */
@@ -24,17 +24,14 @@
 }
 
 body.light-mode {
-    --bg-color: #f8fafc;
-    --text-color: #0f172a;
-    --text-muted: #64748b;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --nav-bg: rgba(248, 250, 252, 0.8);
-    --border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.team-mode {
-    --primary: #ec4899;
-    --accent-glow: linear-gradient(45deg, #ec4899, #8b5cf6);
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --text-muted: #666666;
+    --card-bg: rgba(0, 0, 0, 0.03);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(139, 0, 0, 0.2);
+    --bg-dark: #ffffff;
+    --bg-card: #f9f9f9;
 }
 
 /* Base Styles */

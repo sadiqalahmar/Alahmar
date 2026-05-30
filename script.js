@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. THEME TOGGLE
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
-    const themes = ['dark-mode', 'light-mode', 'team-mode'];
+    const themes = ['dark-mode', 'light-mode'];
 
     if (themeBtn) {
         const icon = themeBtn.querySelector('i');
@@ -102,10 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
         function updateThemeIcon(theme) {
             if (theme === 'dark-mode') {
                 icon.className = 'fas fa-moon';
-            } else if (theme === 'light-mode') {
-                icon.className = 'fas fa-sun';
             } else {
-                icon.className = 'fas fa-users';
+                icon.className = 'fas fa-sun';
             }
         }
     }
